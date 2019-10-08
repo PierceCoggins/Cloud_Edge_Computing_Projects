@@ -1,0 +1,10 @@
+FROM ubuntu
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get install -y python-pip mosquitto-clients mosquitto
+RUN pip install paho-mqtt
+
+WORKDIR /
+COPY file_save.py /home/pierce/Documents/file_save.py
+CMD python file_save.py
