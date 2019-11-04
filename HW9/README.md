@@ -1,1 +1,1 @@
-I've provided Nohup.out and HW9 commands that have been executed outside of those provided in the HW9 instructions.
+I've worked with Darragh and Brad extensively to try to get HW9 to work on my IBM Cloud GPU cluster but have not been able to do so. I've provided the commands that I've written outside of those provided in HW9 and my Nohup.out file that details the errors that I ran into. I was not able to get the system to train before running out of credits for the month of October.
