@@ -1,0 +1,46 @@
+Build out GPU nodes:
+ibmcloud sl vs create --datacenter=lon04 --hostname=v100b --domain=dima.com --image=2263543 --billing=hourly  --network 1000 --key=1562106 --flavor AC2_8X60X100 --san
+
+ngc API Key: YW5zbnE3Z2M1dnIzZmV2ZnNrdGNtMXZmaWc6Yzc0ZjZiMGUtYzBiMS00ZDA1LWE2NTQtYjA1M2U2YWYyOGI5
+
+Clone V2 from github
+
+Update Dockerfile:
+"Check your Dockerfile - If you have
+RUN cd /opt && git clone https://github.com/NVIDIA/OpenSeq2Seq && cd /opt/OpenSeq2Seq && pip install -r requirements.txt
+Change it for
+RUN cd /opt && git clone https://github.com/NVIDIA/OpenSeq2Seq && cd /opt/OpenSeq2Seq && git checkout f1a0f49667764e7841d22a3eb4468a3276047244 && pip install -r requirements.txt"
+
+Build docker image:
+docker build -t openseq2seq -f Dockerfile .
+
+Run docker image:
+docker run --runtime=nvidia -d --name openseq2seq --net=host -e SSH_PORT=4444 -v /data:/data -p 6006:6006 openseq2seq
+
+Enter docker container:
+docker exec -ti openseq2seq bash
+
+Test mpirun:
+mpirun --allow-run-as-root -n 2 -H 10.45.226.19,10.45.226.22  hostname
+
+
+4 GPU: nohup mpirun --allow-run-as-root -n 4 -H 10.45.226.19:2,10.45.226.22:2 -bind-to none -map-by slot --mca btl_tcp_if_include eth0 -x NCCL_SOCKET_IFNAME=eth0 -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH python run.py --config_file=/data/transformer-base.py --use_horovod=True --mode=train_eval &
+
+2 GPU: nohup mpirun --allow-run-as-root -n 2 -H 10.45.226.19:2 -bind-to none -map-by slot --mca btl_tcp_if_include eth0 -x NCCL_SOCKET_IFNAME=eth0 -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH python run.py --config_file=/data/transformer-base.py --use_horovod=True --mode=train_eval &
+
+
+http://158.175.75.2:6006
+
+scp root@158.175.75.7:/data/nohup.out .
+
+./submit.sh -u PierceCoggins -a 5
+
+
+
+Joyce Chen (Strict)
+David Steier
+Mid-January enrollment for emersion
+Schedule time with Julie Haskell-Woerner and Update resume + linkedin
+Update address in 
+Commencement second or third week of May - Ischool specific one
+Nov 11th last day
