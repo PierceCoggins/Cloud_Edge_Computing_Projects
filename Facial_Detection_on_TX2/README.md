@@ -9,3 +9,5 @@ For the edge face detector component, I used OpenCV to write an application that
 I used an MQTT client to send and receive messages, and MQTT broker as the server component of this architecture.
 
 The local MQTT broker was installed on my TX2, and the face detector sent messages through this local broker to a remote MQTT client where the message was converted and saved to object store in the cloud.
+
+![this](Face_detection.png)
