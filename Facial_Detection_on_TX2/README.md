@@ -1,3 +1,4 @@
+
 The goal of this project was to build a lightweight IoT application pipeline with components running both on the edge (your Nvidia Jetson TX2) and the cloud (a VM in Softlayer). Additionally, I wrote the application in a modular way such that it could be run on pretty much any low power edge device or hub (e.g. Raspberry Pi or Raspberry Pi Zero) and a cheap Cloud VM or another low power edge device connected to some kind of storage instead of a Cloud VM.
 
 The overall goal is to be able to capture faces in a video stream coming from the edge in real time, transmit them to the cloud in real time, and save these faces in the cloud for long term storage.
